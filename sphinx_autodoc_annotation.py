@@ -62,19 +62,19 @@ def add_annotation_content(obj, result):
 class MyFunctionDocumenter(FunctionDocumenter):
     def get_doc(self, *args, **kwargs):
         result = super().get_doc(*args, **kwargs)
-        
-        if result:
+        try:
             add_annotation_content(self.object, result[-1])
-        
+        except IndexError as e:
+            pass
         return result
 
 class MyMethodDocumenter(MethodDocumenter):
     def get_doc(self, *args, **kwargs):
         result = super().get_doc(*args, **kwargs)
-        
-        if result:
+        try:
             add_annotation_content(self.object, result[-1])
-        
+        except IndexError as e:
+            pass
         return result
 
 def setup(app):
